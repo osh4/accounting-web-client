@@ -10,6 +10,7 @@ import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AccIncomeComponent} from './acc-income/acc-income.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AccIncomeComponent} from './acc-income/acc-income.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    AccSortableHeader
+    AccSortableHeader,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
