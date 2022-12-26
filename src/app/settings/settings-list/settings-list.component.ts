@@ -2,15 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {SettingsService} from "../../settings.service";
 import {Setting} from "../../types/Setting";
 
-import {SettingType} from "../../types/SettingType";
-
 @Component({
   selector: 'app-settings-list',
   templateUrl: './settings-list.component.html',
   styleUrls: ['./settings-list.component.css']
 })
 export class SettingsListComponent implements OnInit {
-  settingTypes: Array<SettingType> = [];
   newSetting: Setting;
   selectedSetting: Setting;
 
@@ -20,7 +17,6 @@ export class SettingsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.settingTypes = this.settingsService.getSettingTypes();
   }
 
   createSetting() {

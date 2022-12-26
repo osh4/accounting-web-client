@@ -14,16 +14,18 @@
         <th scope="row">{{ setting.key }}</th>
         <td>
           <select class="form-select" disabled>
-            <option *ngFor="let type of settingTypes"
+            <option *ngFor="let type of settingsService.getSettingTypes()"
                     [selected]="type.name == setting.type" value="{{type.name}}">{{type.name}}
             </option>
           </select>
         </td>
         <td> {{ setting.value }}</td>
         <td>
-          <button type="button" class="btn btn-success btn-padding" (click)="editSetting(setting)"><i class="fas fa-edit"></i>
+          <button type="button" class="btn btn-success btn-padding" (click)="editSetting(setting)">
+            <i class="fas fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-danger btn-padding" (click)="removeSetting(setting)"><i class="far fa-trash-alt"></i>
+          <button type="button" class="btn btn-danger btn-padding" (click)="removeSetting(setting)">
+            <i class="far fa-trash-alt"></i>
           </button>
         </td>
       </tr>
@@ -73,7 +75,7 @@
         </td>
         <td>
           <select [(ngModel)]="selectedSetting.type" class="form-select">
-            <option *ngFor="let type of settingTypes" value="{{type.name}}">{{type.name}}
+            <option *ngFor="let type of settingsService.getSettingTypes()" value="{{type.name}}">{{type.name}}
             </option>
           </select>
         </td>
