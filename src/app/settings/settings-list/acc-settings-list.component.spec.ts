@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsListComponent } from './settings-list.component';
+import { AccSettingsListComponent } from './acc-settings-list.component';
 
 describe('ContactListComponent', () => {
-  let component: SettingsListComponent;
-  let fixture: ComponentFixture<SettingsListComponent>;
+  let component: AccSettingsListComponent;
+  let fixture: ComponentFixture<AccSettingsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsListComponent ]
+      declarations: [ AccSettingsListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SettingsListComponent);
+    fixture = TestBed.createComponent(AccSettingsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

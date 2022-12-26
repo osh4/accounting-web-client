@@ -35,10 +35,10 @@ export interface SortEvent {
 
 @Component({
   selector: 'app-settings-list',
-  templateUrl: './settings-list.component.html',
-  styleUrls: ['./settings-list.component.css']
+  templateUrl: './acc-settings-list.component.html',
+  styleUrls: ['./acc-settings-list.component.css']
 })
-export class SettingsListComponent implements OnInit {
+export class AccSettingsListComponent implements OnInit {
   newSetting: Setting;
   selectedSetting: Setting;
 
