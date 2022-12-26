@@ -22,6 +22,9 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": [
+      "@angular/localize"
+    ],
     "lib": [
       "es2021.intl",
       "dom"
