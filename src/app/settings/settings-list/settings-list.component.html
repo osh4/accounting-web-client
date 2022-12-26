@@ -2,34 +2,97 @@
   <table class="table table-hover">
     <thead>
     <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Actions</th>
+      <th scope="col">Key</th>
+      <th scope="col">Type</th>
+      <th scope="col">Value</th>
+      <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let contact of contacts">
-
-      <td>{{ contact.id }}</td>
-      <td> {{ contact.name }}</td>
-      <td> {{ contact.email }}</td>
+    <ng-container *ngIf="settingsService.settings$ | async as settings">
+      <tr *ngFor="let setting of settings">
+        <th scope="row">{{ setting.key }}</th>
+        <td>
+          <select class="form-select" disabled>
+            <option *ngFor="let type of settingTypes"
+                    [selected]="type.name == setting.type" value="{{type.name}}">{{type.name}}
+            </option>
+          </select>
+        </td>
+        <td> {{ setting.value }}</td>
+        <td>
+          <button type="button" class="btn btn-success btn-padding" (click)="editSetting(setting)"><i class="fas fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-padding" (click)="removeSetting(setting)"><i class="far fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+    <tr>
       <td>
-        <button class="btn btn-primary" (click)="selectContact(contact)"> Show details</button>
+        <input [(ngModel)]="newSetting.key" type="text" name="key" class="form-control" id="key"
+               aria-describedby="keyHelp" placeholder="Enter key">
+      </td>
+      <td>
+        <select [(ngModel)]="newSetting.type" id="type" class="form-select">
+          <option *ngFor="let type of settingsService.getSettingTypes()" value="{{type.name}}">{{type.name}}
+          </option>
+        </select>
+      </td>
+      <td>
+        <input [(ngModel)]="newSetting.value" type="text" name="value" class="form-control" id="value"
+               aria-describedby="valueHelp"
+               placeholder="Enter value">
+      </td>
+      <td>
+        <button [disabled]="newSetting.key=='' || newSetting.type=='' || newSetting.value==''"
+                class="btn btn-primary wide-button" (click)="createSetting()">Create
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
-  <div class="card text-center" *ngIf="selectedContact">
+  <div class="card text-center" *ngIf="selectedSetting && selectedSetting.key">
     <div class="card-header">
-      # {{selectedContact.id}}
+      Edit
     </div>
-    <div class="card-block">
-      <h4 class="card-title">{{selectedContact.name}}</h4>
-      <p class="card-text">
-        {{selectedContact.description}}
-      </p>
-    </div>
+    <table class="table-sm">
+      <thead>
+      <tr>
+        <th>Key</th>
+        <th>Type</th>
+        <th>Value</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input disabled [(ngModel)]="selectedSetting.key" type="text" name="key" class="form-control"
+                 aria-describedby="keyHelp" placeholder="Enter key">
+        </td>
+        <td>
+          <select [(ngModel)]="selectedSetting.type" class="form-select">
+            <option *ngFor="let type of settingTypes" value="{{type.name}}">{{type.name}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input [(ngModel)]="selectedSetting.value" type="text" name="value" class="form-control"
+                 aria-describedby="valueHelp"
+                 placeholder="Enter value">
+        </td>
+        <td>
+          <button type="button"
+                  [disabled]="selectedSetting.key=='' || selectedSetting.type=='' || selectedSetting.value==''"
+                  class="btn btn-primary btn-padding half-size-button"
+                  (click)="updateSetting()">Save
+          </button>
+          <button type="button" class="btn btn-close btn-padding" (click)="cancelUpdate()"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
   </div>
 </div>

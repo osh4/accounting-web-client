@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SettingsService} from "../../settings.service";
+import {Setting} from "../../types/Setting";
+
+import {SettingType} from "../../types/SettingType";
 
 @Component({
   selector: 'app-settings-list',
@@ -7,17 +10,40 @@ import {SettingsService} from "../../settings.service";
   styleUrls: ['./settings-list.component.css']
 })
 export class SettingsListComponent implements OnInit {
-  contacts: { id: any; name: any; description: any; email: any; }[] = [];
-  selectedContact: any;
+  settingTypes: Array<SettingType> = [];
+  newSetting: Setting;
+  selectedSetting: Setting;
 
   constructor(public settingsService: SettingsService) {
+    this.newSetting = new Setting();
+    this.selectedSetting = new Setting();
   }
 
   ngOnInit() {
-    this.contacts = this.settingsService.getContacts();
+    this.settingTypes = this.settingsService.getSettingTypes();
   }
 
-  public selectContact(contact: any) {
-    this.selectedContact = contact;
+  createSetting() {
+    console.log(this.newSetting);
+    this.settingsService.createSetting(this.newSetting);
+    this.newSetting = new Setting();
+  }
+
+  removeSetting(setting: Setting) {
+    console.log(setting);
+    this.settingsService.remove(setting);
+  }
+
+  editSetting(setting: Setting) {
+    this.selectedSetting = setting;
+  }
+
+  updateSetting() {
+    this.settingsService.update(this.selectedSetting);
+    this.selectedSetting = new Setting();
+  }
+
+  cancelUpdate() {
+    this.selectedSetting = new Setting();
   }
 }

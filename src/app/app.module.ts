@@ -4,17 +4,15 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-import {SettingCreateComponent} from './settings/setting-create/setting-create.component';
 import {SettingsListComponent} from './settings/settings-list/settings-list.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
-// import {RouterOutlet} from "@angular/router";
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SettingCreateComponent,
     SettingsListComponent,
     HeaderComponent,
     FooterComponent,
@@ -22,9 +20,9 @@ import {HomeComponent} from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    // RouterOutlet,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
