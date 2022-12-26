@@ -29,8 +29,11 @@ export class SettingsService {
   }
 
   public getSettings(): Array<Setting> {
-    //this.http.get<Array<Setting>>(this.settingsUrl).subscribe((data: Array<Setting>) => this.settings = data);
-    return this.settings;
+    return this._settings.getValue();
+  }
+
+  public setSettings(settings: Array<Setting>) {
+    this._settings.next(settings);
   }
 
   public createSetting(setting: Setting) {

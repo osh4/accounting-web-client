@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-import {SettingsListComponent} from './settings/settings-list/settings-list.component';
+import {AccSortableHeader, SettingsListComponent} from './settings/settings-list/settings-list.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
@@ -24,7 +24,8 @@ import {AccIncomeComponent} from './acc-income/acc-income.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AccSortableHeader
   ],
   providers: [],
   bootstrap: [AppComponent]
