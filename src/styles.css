@@ -22,3 +22,7 @@ th[sortable].desc:before {
   transform: rotate(180deg);
   -ms-transform: rotate(180deg);
 }
+
+.container-adjusted {
+  margin-top: 70px;
+}
