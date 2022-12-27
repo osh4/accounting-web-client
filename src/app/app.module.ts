@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {AccSortableHeader, AccSettingsListComponent} from './settings/acc-settings-list/acc-settings-list.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
-import {HomeComponent} from './home/home.component';
+import {DashboardComponent} from './acc-dashboard/dashboard.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AccIncomeComponent} from './acc-income/acc-income.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +21,7 @@ import { AccTransactionsListComponent } from './acc-transactions-list/acc-transa
     AccSettingsListComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
+    DashboardComponent,
     AccIncomeComponent,
     AccAccountsListComponent,
     AccTransactionTypesListComponent,
