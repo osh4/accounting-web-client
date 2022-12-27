@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject} from "rxjs";
 import {Setting} from "./types/Setting";
 import {SettingType} from "./types/SettingType";
+import {NetworkService} from "./network.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,13 @@ export class SettingsService {
   private _settings: BehaviorSubject<Array<Setting>>;
   public readonly settings$;
   settingTypes: Array<SettingType> = [];
-  settingsUrl = 'https://localhost:8443/setting';
-  settingTypesUrl = 'https://localhost:8443/setting/type';
+  settingsUrl: string = '';
+  settingTypesUrl: string = '';
 
-  constructor(private http: HttpClient) {
+  constructor(public http: HttpClient, public networkService: NetworkService) {
+    this.settingsUrl = networkService.getSettingsUrl();
+    this.settingTypesUrl = networkService.getSettingTypesUrl();
+
     this.http.get<Array<SettingType>>(this.settingTypesUrl)
       .subscribe((data: Array<SettingType>) => this.settingTypes.push(...data));
     this.http.get<Array<Setting>>(this.settingsUrl)
