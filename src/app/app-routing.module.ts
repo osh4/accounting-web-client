@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {AccSettingsListComponent} from './settings/settings-list/acc-settings-list.component';
+import {AccSettingsListComponent} from './settings/acc-settings-list/acc-settings-list.component';
 import {HomeComponent} from './home/home.component';
 import {AccIncomeComponent} from "./acc-income/acc-income.component";
 

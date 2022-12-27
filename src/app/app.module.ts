@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-import {AccSortableHeader, AccSettingsListComponent} from './settings/settings-list/acc-settings-list.component';
+import {AccSortableHeader, AccSettingsListComponent} from './settings/acc-settings-list/acc-settings-list.component';
 import {HeaderComponent} from './header/header.component';
 import {FooterComponent} from './footer/footer.component';
 import {HomeComponent} from './home/home.component';
