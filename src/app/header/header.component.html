@@ -1,22 +1,39 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand" href="#">Accounting Web</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+  <a class="navbar-brand header-logo" href="/">
+    <img src="/favicon.ico" width="30" height="30" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
           aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-
       <li class="nav-item">
-        <a class="nav-link" routerLink="/home">Home</a>
+        <a class="nav-link" routerLink="/dashboard">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/settings-list">Settings</a>
+        <a class="nav-link" routerLink="/transactions">Transactions</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/income">Income</a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/accounts">Accounts</a>
+      </li>
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="btn nav-link" id="settingsList" ngbDropdownToggle>
+            Settings
+          </button>
+          <div ngbDropdownMenu aria-labelledby="settingsList">
+            <button routerLink="/account-types" ngbDropdownItem>Account types</button>
+            <button routerLink="/transaction-types" ngbDropdownItem>Transaction types</button>
+            <div class="dropdown-divider"></div>
+            <button ngbDropdownItem routerLink="/settings-list">Settings</button>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
