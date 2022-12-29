@@ -1,6 +1,6 @@
 import {Component, Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
-import {SettingsService} from "../../settings.service";
-import {Setting} from "../../types/Setting";
+import {SettingsService} from "../../../services/settings.service";
+import {Setting} from "../../../types/Setting";
 
 @Directive({
   selector: 'th[sortable]',

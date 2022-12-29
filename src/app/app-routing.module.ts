@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {AccSettingsListComponent} from './settings/acc-settings-list/acc-settings-list.component';
-import {DashboardComponent} from './acc-dashboard/dashboard.component';
-import {AccIncomeComponent} from "./acc-income/acc-income.component";
-import {AccAccountsListComponent} from "./acc-accounts-list/acc-accounts-list.component";
-import {AccTransactionsListComponent} from "./acc-transactions-list/acc-transactions-list.component";
-import {AccTransactionTypesListComponent} from "./acc-transaction-types-list/acc-transaction-types-list.component";
+import {AccSettingsListComponent} from '../components/settings/acc-settings-list/acc-settings-list.component';
+import {DashboardComponent} from '../components/acc-dashboard/dashboard.component';
+import {AccIncomeComponent} from "../components/acc-income/acc-income.component";
+import {AccAccountsListComponent} from "../components/acc-accounts-list/acc-accounts-list.component";
+import {AccTransactionsListComponent} from "../components/acc-transactions-list/acc-transactions-list.component";
+import {AccTransactionTypesListComponent} from "../components/acc-transaction-types-list/acc-transaction-types-list.component";
 
 const routes: Routes = [
   {path: "", pathMatch: "full", redirectTo: "dashboard"},

@@ -4,16 +4,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-import {AccSortableHeader, AccSettingsListComponent} from './settings/acc-settings-list/acc-settings-list.component';
-import {HeaderComponent} from './header/header.component';
-import {FooterComponent} from './footer/footer.component';
-import {DashboardComponent} from './acc-dashboard/dashboard.component';
+import {AccSortableHeader, AccSettingsListComponent} from '../components/settings/acc-settings-list/acc-settings-list.component';
+import {HeaderComponent} from '../components/header/header.component';
+import {FooterComponent} from '../components/footer/footer.component';
+import {DashboardComponent} from '../components/acc-dashboard/dashboard.component';
 import {HttpClientModule} from '@angular/common/http';
-import {AccIncomeComponent} from './acc-income/acc-income.component';
+import {AccIncomeComponent} from '../components/acc-income/acc-income.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AccAccountsListComponent } from './acc-accounts-list/acc-accounts-list.component';
-import { AccTransactionTypesListComponent } from './acc-transaction-types-list/acc-transaction-types-list.component';
-import { AccTransactionsListComponent } from './acc-transactions-list/acc-transactions-list.component';
+import { AccAccountsListComponent } from '../components/acc-accounts-list/acc-accounts-list.component';
+import { AccTransactionTypesListComponent } from '../components/acc-transaction-types-list/acc-transaction-types-list.component';
+import { AccTransactionsListComponent } from '../components/acc-transactions-list/acc-transactions-list.component';
 import {
   AvatarModule,
   BadgeModule,
