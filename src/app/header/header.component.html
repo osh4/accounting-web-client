@@ -1,29 +1,24 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand header-logo" href="/">
-    <img src="/favicon.ico" width="30" height="30" alt="">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/dashboard">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/transactions">Transactions</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/income">Income</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/accounts">Accounts</a>
-      </li>
-      <li class="nav-item dropdown">
-        <div ngbDropdown class="d-inline-block">
-          <button type="button" class="btn nav-link" id="settingsList" ngbDropdownToggle>
+<ng-container>
+  <c-container [fluid]="true">
+    <a class="navbar-brand" href="/">
+      <img src="/favicon.ico" width="30" height="30" alt="">
+    </a>
+    <c-header-nav class="d-none d-lg-flex me-auto">
+      <c-nav-item>
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/transactions" routerLinkActive="active">Transactions</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/income" routerLinkActive="active">Income</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/accounts" routerLinkActive="active">Accounts</a>
+      </c-nav-item>
+      <c-nav-item>
+        <div ngbDropdown class="my-nav-link">
+          <button type="button" class="btn" id="settingsList" ngbDropdownToggle>
             Settings
           </button>
           <div ngbDropdownMenu aria-labelledby="settingsList">
@@ -33,7 +28,23 @@
             <button ngbDropdownItem routerLink="/settings-list">Settings</button>
           </div>
         </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+      </c-nav-item>
+    </c-header-nav>
+    <c-header-nav class="ms-3">
+      <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+    </c-header-nav>
+  </c-container>
+</ng-container>
+
+<ng-template #userDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <c-avatar
+      cTextColor="primary"
+      shape="rounded-1"
+      size="md"
+      src="./assets/userpic-default.webp"
+      status="success"
+    >
+    </c-avatar>
+  </c-dropdown>
+</ng-template>
