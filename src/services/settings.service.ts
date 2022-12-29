@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject} from "rxjs";
-import {Setting} from "../types/Setting";
-import {SettingType} from "../types/SettingType";
+import {Setting} from "../models/Setting";
+import {SettingType} from "../models/SettingType";
 import {NetworkService} from "./network.service";
 
 @Injectable({
