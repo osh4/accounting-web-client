@@ -75,7 +75,7 @@
         </td>
         <td>
           <select [(ngModel)]="selectedSetting.type" class="form-select">
-            <option *ngFor="let type of settingsService.getSettingTypes()" value="{{type.name}}">{{type.name}}
+            <option *ngFor="let type of settingsService.getSettingTypes()" [value]="type.name">{{type.name}}
             </option>
           </select>
         </td>
