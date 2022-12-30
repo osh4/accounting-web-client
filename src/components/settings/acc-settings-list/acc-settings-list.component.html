@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngIf="settingsService.settings$ | async as settings">
+    <ng-container *ngIf="settingList | async as settings">
       <tr *ngFor="let setting of settings">
         <th scope="row">{{ setting.key }}</th>
         <td>
@@ -54,6 +54,17 @@
     </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="totalElements"
+      [(page)]="page"
+      [pageSize]="size"
+      (pageChange)="refreshSettings()"
+    >
+    </ngb-pagination>
+
+  </div>
+
   <div class="card text-center" *ngIf="selectedSetting && selectedSetting.key">
     <div class="card-header">
       Edit
