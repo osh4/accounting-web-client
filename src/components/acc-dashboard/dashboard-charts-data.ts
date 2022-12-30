@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { getStyle, hexToRgba } from '@coreui/utils/src';
+import {Injectable} from '@angular/core';
+import {getStyle, hexToRgba} from '@coreui/utils/src';
+import {TimePeriodEnum} from "../../enum/TimePeriodEnum";
 
 export interface IChartProps {
   data?: any;
@@ -26,7 +27,7 @@ export class DashboardChartsData {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  initMainChart(period: string = 'Month') {
+  initMainChart(period: TimePeriodEnum = TimePeriodEnum.Month) {
     const brandSuccess = getStyle('--cui-success') ?? '#4dbd74';
     const brandInfo = getStyle('--cui-info') ?? '#20a8d8';
     const brandInfoBg = hexToRgba(getStyle('--cui-info'), 10) ?? '#20a8d8';
@@ -34,7 +35,7 @@ export class DashboardChartsData {
 
     // mainChart
     // mainChart
-    this.mainChart['elements'] = period === 'Month' ? 12 : 27;
+    this.mainChart['elements'] = period === TimePeriodEnum.Month ? 12 : 27;
     this.mainChart['Data1'] = [];
     this.mainChart['Data2'] = [];
     this.mainChart['Data3'] = [];
@@ -47,7 +48,7 @@ export class DashboardChartsData {
     }
 
     let labels: string[] = [];
-    if (period === 'Month') {
+    if (period === TimePeriodEnum.Month) {
       labels = [
         'January',
         'February',

@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   public periodText: string = '';
   public mainChart: IChartProps = {};
   public timePeriodRadioGroup = new UntypedFormGroup({
-    trafficRadio: new UntypedFormControl('Month')
+    trafficRadio: new UntypedFormControl(TimePeriodEnum.Month)
   });
   public periods = TimePeriodEnum;
   keys = Object.keys;
@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit {
   setPeriod(value: string): void {
     this.periodText = value;
     this.timePeriodRadioGroup.setValue({trafficRadio: value});
-    this.chartsData.initMainChart(value);
+    let periodIdx = value as keyof typeof TimePeriodEnum;
+    this.chartsData.initMainChart(TimePeriodEnum[periodIdx]);
     this.initCharts();
   }
 

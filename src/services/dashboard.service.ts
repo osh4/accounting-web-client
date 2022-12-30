@@ -12,7 +12,6 @@ export class DashboardService {
   }
 
   getTimePeriodLabels(): typeof TimePeriodEnum {
-    let timePeriods = TimePeriodEnum;
-    return timePeriods;
+    return TimePeriodEnum;
   }
 }
