@@ -10,49 +10,23 @@
           <!--        <button cButton class="float-end" color="primary">-->
           <!--          <svg cIcon name="cilCloudDownload"></svg>-->
           <!--        </button>-->
-          <form [formGroup]="trafficRadioGroup">
+          <form [formGroup]="timePeriodRadioGroup">
             <c-button-group class="float-end me-3" role="group">
-              <input
-                class="btn-check"
-                formControlName="trafficRadio"
-                type="radio"
-                value="Day"
-              />
-              <label
-                (click)="setTrafficPeriod('Day')"
-                cButton
-                cFormCheckLabel
-                color="secondary"
-                variant="outline"
-              >Day</label>
-
-              <input
-                class="btn-check"
-                formControlName="trafficRadio"
-                type="radio"
-                value="Month"
-              />
-              <label
-                (click)="setTrafficPeriod('Month')"
-                cButton
-                cFormCheckLabel
-                color="secondary"
-                variant="outline"
-              >Month</label>
-
-              <input
-                class="btn-check"
-                formControlName="trafficRadio"
-                type="radio"
-                value="Year"
-              />
-              <label
-                (click)="setTrafficPeriod('Year')"
-                cButton
-                cFormCheckLabel
-                color="secondary"
-                variant="outline"
-              >Year</label>
+              <ng-container *ngFor="let period of keys(periods)">
+                <input
+                  class="btn-check"
+                  formControlName="trafficRadio"
+                  type="radio"
+                  value="{{period}}"
+                />
+                <label
+                  (click)="setPeriod(period)"
+                  cButton
+                  cFormCheckLabel
+                  color="secondary"
+                  variant="outline"
+                >{{period}}</label>
+              </ng-container>
             </c-button-group>
           </form>
         </c-col>
@@ -60,7 +34,7 @@
       <c-chart
         [data]="mainChart.data"
         [height]="300"
-        [ngStyle]="{ 'marginTop.px': 40 }"
+        [ngStyle]="{ 'marginTop.px': 20 }"
         [options]="mainChart.options"
         [type]="mainChart.type"
       >

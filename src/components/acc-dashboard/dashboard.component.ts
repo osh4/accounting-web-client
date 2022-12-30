@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {DashboardChartsData, IChartProps} from "./dashboard-charts-data";
+import {DashboardService} from "../../services/dashboard.service";
+import {TimePeriodEnum} from "../../enum/TimePeriodEnum";
 
 @Component({
   selector: 'app-home',
@@ -10,11 +12,14 @@ import {DashboardChartsData, IChartProps} from "./dashboard-charts-data";
 export class DashboardComponent implements OnInit {
   public periodText: string = '';
   public mainChart: IChartProps = {};
-  public trafficRadioGroup = new UntypedFormGroup({
+  public timePeriodRadioGroup = new UntypedFormGroup({
     trafficRadio: new UntypedFormControl('Month')
   });
+  public periods = TimePeriodEnum;
+  keys = Object.keys;
 
-  constructor(private chartsData: DashboardChartsData) {
+  constructor(private chartsData: DashboardChartsData, private dashboardService: DashboardService) {
+    this.periods = dashboardService.getTimePeriodLabels();
   }
 
   ngOnInit(): void {
@@ -23,12 +28,12 @@ export class DashboardComponent implements OnInit {
 
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
-    this.periodText = '2020-2021'
+    this.periodText = 'Jan-Dec'
   }
 
-  setTrafficPeriod(value: string): void {
+  setPeriod(value: string): void {
     this.periodText = value;
-    this.trafficRadioGroup.setValue({trafficRadio: value});
+    this.timePeriodRadioGroup.setValue({trafficRadio: value});
     this.chartsData.initMainChart(value);
     this.initCharts();
   }
