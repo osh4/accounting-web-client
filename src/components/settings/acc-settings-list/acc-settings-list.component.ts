@@ -38,17 +38,18 @@ export interface SortEvent {
   styleUrls: ['./acc-settings-list.component.css']
 })
 export class AccSettingsListComponent implements OnInit {
-  newSetting: Setting;
-  selectedSetting: Setting;
+  newSetting: Setting = new Setting();
+  selectedSetting: Setting = new Setting();
   settingList: BehaviorSubject<Setting[]> = new BehaviorSubject(new Array<Setting>());
   page = 0;
   size = 2;
   totalPages = 0;
   totalElements = 6;
+  settingTypeId = '';
 
   constructor(public settingsService: SettingsService) {
-    this.newSetting = new Setting();
-    this.selectedSetting = new Setting();
+    settingsService.getDefaultPageSize().subscribe(data => this.size = +data.value);
+    settingsService.getDefaultSettingType().subscribe(data => this.settingTypeId = data.value);
   }
 
   @ViewChildren(AccSortableHeader) headers: QueryList<AccSortableHeader> = new QueryList<AccSortableHeader>();
@@ -61,7 +62,7 @@ export class AccSettingsListComponent implements OnInit {
     });
     if (direction !== '' && column !== '') {
       debugger
-      this.settingsService.getSettings(this.page - 1, this.size, column + '_' + direction)
+      this.settingsService.fetchSettings(this.page - 1, this.size, column + '_' + direction)
         .subscribe(data => {
           this.settingList.next(data.content);
         });
@@ -69,7 +70,7 @@ export class AccSettingsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.settingsService.getSettings().subscribe(data => {
+    this.settingsService.fetchSettings().subscribe(data => {
       this.settingList.next(data.content);
       this.totalElements = data.totalElements;
       this.page = data.number;
@@ -85,7 +86,7 @@ export class AccSettingsListComponent implements OnInit {
   }
 
   removeSetting(setting: Setting) {
-    this.settingsService.remove(setting).subscribe(
+    this.settingsService.remove(setting.key).subscribe(
       () => this.refreshSettings()
     );
   }
@@ -96,17 +97,23 @@ export class AccSettingsListComponent implements OnInit {
 
   updateSetting() {
     this.settingsService.update(this.selectedSetting);
-    this.selectedSetting = new Setting();
+    this.clearSelectedSetting();
   }
 
-  cancelUpdate() {
+  clearSelectedSetting() {
     this.selectedSetting = new Setting();
   }
 
   public refreshSettings() {
-    this.settingsService.getSettings(this.page - 1, this.size)
-      .subscribe(data => {
-        this.settingList.next(data.content);
-      });
+    this.settingsService.fetchSettings(this.page - 1, this.size).subscribe(data => {
+      this.settingList.next(data.content);
+    });
+    this.setDefaultSettingType();
+  }
+
+  private setDefaultSettingType() {
+    this.settingsService.fetchSettingType(this.settingTypeId).subscribe(data => {
+      this.newSetting.settingType = data;
+    });
   }
 }

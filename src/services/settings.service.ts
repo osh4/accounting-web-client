@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from "rxjs";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {catchError, Observable, throwError} from "rxjs";
 import {Setting} from "../models/Setting";
 import {SettingType} from "../models/SettingType";
 import {NetworkService} from "./network.service";
-import {SettingApiResponse} from "../models/SettingApiResponse";
+import {SettingApiResponse} from "../models/api/SettingApiResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,17 @@ export class SettingsService {
     this.settingsUrl = networkService.getSettingsUrl();
     this.settingTypesUrl = networkService.getSettingTypesUrl();
 
-    this.http.get<Array<SettingType>>(this.settingTypesUrl)
+    this.fetchSettingTypes()
       .subscribe((data: Array<SettingType>) => this.settingTypes.push(...data));
   }
 
-  public getSettings(page: number = this.DEFAULT_PAGE,
-                     size: number = this.DEFAULT_SIZE,
-                     sort: string = this.DEFAULT_SORT): Observable<SettingApiResponse> {
+  private fetchSettingTypes() {
+    return this.http.get<Array<SettingType>>(this.settingTypesUrl);
+  }
+
+  public fetchSettings(page: number = this.DEFAULT_PAGE,
+                       size: number = this.DEFAULT_SIZE,
+                       sort: string = this.DEFAULT_SORT): Observable<SettingApiResponse> {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("page", page);
     queryParams = queryParams.append("size", size);
@@ -36,24 +40,51 @@ export class SettingsService {
     return this.http.get<SettingApiResponse>(this.settingsUrl, {params: queryParams});
   }
 
+  public fetchSetting(key: string): Observable<Setting> {
+    return this.http.get<Setting>(this.settingsUrl + "/" + key).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public getDefaultPageSize(): Observable<Setting> {
+    return this.fetchSetting('default.page.size');
+  }
+
+  public getDefaultSettingType(): Observable<Setting> {
+    return this.fetchSetting('default.setting.type');
+  }
+
   public getSettingTypes(): Array<SettingType> {
     return this.settingTypes;
+  }
+
+  public fetchSettingType(id: String): Observable<SettingType> {
+    return this.http.get<SettingType>(this.settingTypesUrl + "/" + id).pipe(
+      catchError(this.handleError)
+    );
   }
 
   public createSetting(setting: Setting) {
     return this.http.post(this.settingsUrl, setting);
   }
 
-  public remove(setting: Setting) {
-    const options = {
-      headers: this.headers,
-      body: setting
-    };
-
-    return this.http.delete(this.settingsUrl, options);
+  public remove(id: String) {
+    return this.http.delete(this.settingsUrl + "/" + id, {headers: this.headers});
   }
 
   update(setting: Setting) {
-    this.http.put(this.settingsUrl, setting).subscribe(data => console.log(data));
+    this.http.put(this.settingsUrl + "/" + setting.key, setting).subscribe(data => console.log(data));
   }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
 }

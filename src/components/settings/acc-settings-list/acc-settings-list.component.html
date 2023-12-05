@@ -3,7 +3,7 @@
     <thead>
     <tr>
       <th scope="col" sortable="key" (sort)="onSort($event)">Key</th>
-      <th scope="col" sortable="type" (sort)="onSort($event)">Type</th>
+      <th scope="col">Type</th>
       <th scope="col" sortable="value" (sort)="onSort($event)">Value</th>
       <th scope="col">Actions</th>
     </tr>
@@ -15,7 +15,7 @@
         <td>
           <select class="form-select" disabled>
             <option *ngFor="let type of settingsService.getSettingTypes()"
-                    [selected]="type.name == setting.type" value="{{type.name}}">{{type.name}}
+                    [selected]="type.id == setting.settingType.id" value="{{type.id}}">{{type.name}}
             </option>
           </select>
         </td>
@@ -36,19 +36,19 @@
                aria-describedby="keyHelp" placeholder="Enter key">
       </td>
       <td>
-        <select [(ngModel)]="newSetting.type" id="type" class="form-select">
-          <option *ngFor="let type of settingsService.getSettingTypes()" value="{{type.name}}">{{type.name}}
+        <select [(ngModel)]="newSetting.settingType.id" id="type" class="form-select">
+          <option *ngFor="let type of settingsService.getSettingTypes()" value="{{type.id}}">{{type.name}}
           </option>
         </select>
       </td>
       <td>
         <input [(ngModel)]="newSetting.value" type="text" name="value" class="form-control" id="value"
-               aria-describedby="valueHelp"
-               placeholder="Enter value">
+               aria-describedby="valueHelp" placeholder="Enter value">
       </td>
       <td>
-        <button [disabled]="newSetting.key=='' || newSetting.type=='' || newSetting.value==''"
-                class="btn btn-primary wide-button" (click)="createSetting()">Create
+        <button
+          [disabled]="newSetting.key=='' || !newSetting.settingType || newSetting.settingType.id=='' || newSetting.value==''"
+          class="btn btn-primary wide-button" (click)="createSetting()">Create
         </button>
       </td>
     </tr>
@@ -85,8 +85,8 @@
                  aria-describedby="keyHelp" placeholder="Enter key">
         </td>
         <td>
-          <select [(ngModel)]="selectedSetting.type" class="form-select">
-            <option *ngFor="let type of settingsService.getSettingTypes()" [value]="type.name">{{type.name}}
+          <select [(ngModel)]="selectedSetting.settingType.id" class="form-select">
+            <option *ngFor="let type of settingsService.getSettingTypes()" [value]="type.id">{{type.name}}
             </option>
           </select>
         </td>
@@ -97,11 +97,11 @@
         </td>
         <td>
           <button type="button"
-                  [disabled]="selectedSetting.key=='' || selectedSetting.type=='' || selectedSetting.value==''"
+                  [disabled]="selectedSetting.key=='' || !selectedSetting.settingType || selectedSetting.value==''"
                   class="btn btn-primary btn-padding half-size-button"
                   (click)="updateSetting()">Save
           </button>
-          <button type="button" class="btn btn-close btn-padding" (click)="cancelUpdate()"></button>
+          <button type="button" class="btn btn-close btn-padding" (click)="clearSelectedSetting()"></button>
         </td>
       </tr>
       </tbody>

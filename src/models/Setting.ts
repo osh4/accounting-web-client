@@ -1,5 +1,7 @@
+import {SettingType} from "./SettingType";
+
 export class Setting {
   key: string = '';
-  type: string = 'string';
+  settingType: SettingType = new SettingType();
   value: string = '';
 }
