@@ -1,0 +1,20 @@
+td, th {
+  vertical-align: middle;
+  padding-block: 10px;
+}
+
+.btn-control {
+  font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', 'Tahoma', Sans-Serif, serif;
+}
+
+.btn-padding {
+  margin-right: 7px;
+}
+
+.wide-button {
+  width: 100%;
+}
+
+.half-size-button {
+  width: 50%;
+}

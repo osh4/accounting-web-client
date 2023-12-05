@@ -1,3 +1,10 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: '',
+  settings: '',
+  settingTypes: '',
+  accounts: '',
+  currency: '',
+  transactions: '',
+  transactionTypes: ''
 };

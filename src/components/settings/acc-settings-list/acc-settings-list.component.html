@@ -1,0 +1,111 @@
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col" sortable="key" (sort)="onSort($event)">Key</th>
+      <th scope="col">Type</th>
+      <th scope="col" sortable="value" (sort)="onSort($event)">Value</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngIf="settingList | async as settings">
+      <tr *ngFor="let setting of settings">
+        <th scope="row">{{ setting.key }}</th>
+        <td>
+          <select class="form-select" disabled>
+            <option *ngFor="let type of settingsService.getSettingTypes()"
+                    [selected]="type.id == setting.settingType.id" value="{{type.id}}">{{type.name}}
+            </option>
+          </select>
+        </td>
+        <td> {{ setting.value }}</td>
+        <td>
+          <button type="button" class="btn btn-success btn-padding" (click)="editSetting(setting)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-padding" (click)="removeSetting(setting)">
+            <i class="far fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+    <tr>
+      <td>
+        <input [(ngModel)]="newSetting.key" type="text" name="key" class="form-control" id="key"
+               aria-describedby="keyHelp" placeholder="Enter key">
+      </td>
+      <td>
+        <select [(ngModel)]="newSetting.settingType.id" id="type" class="form-select">
+          <option *ngFor="let type of settingsService.getSettingTypes()" value="{{type.id}}">{{type.name}}
+          </option>
+        </select>
+      </td>
+      <td>
+        <input [(ngModel)]="newSetting.value" type="text" name="value" class="form-control" id="value"
+               aria-describedby="valueHelp" placeholder="Enter value">
+      </td>
+      <td>
+        <button
+          [disabled]="newSetting.key=='' || !newSetting.settingType || newSetting.settingType.id=='' || newSetting.value==''"
+          class="btn btn-primary wide-button" (click)="createSetting()">Create
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="totalElements"
+      [(page)]="page"
+      [pageSize]="size"
+      (pageChange)="refreshSettings()"
+    >
+    </ngb-pagination>
+
+  </div>
+
+  <div class="card text-center" *ngIf="selectedSetting && selectedSetting.key">
+    <div class="card-header">
+      Edit
+    </div>
+    <table class="table-sm">
+      <thead>
+      <tr>
+        <th>Key</th>
+        <th>Type</th>
+        <th>Value</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input disabled [(ngModel)]="selectedSetting.key" type="text" name="key" class="form-control"
+                 aria-describedby="keyHelp" placeholder="Enter key">
+        </td>
+        <td>
+          <select [(ngModel)]="selectedSetting.settingType.id" class="form-select">
+            <option *ngFor="let type of settingsService.getSettingTypes()" [value]="type.id">{{type.name}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input [(ngModel)]="selectedSetting.value" type="text" name="value" class="form-control"
+                 aria-describedby="valueHelp"
+                 placeholder="Enter value">
+        </td>
+        <td>
+          <button type="button"
+                  [disabled]="selectedSetting.key=='' || !selectedSetting.settingType || selectedSetting.value==''"
+                  class="btn btn-primary btn-padding half-size-button"
+                  (click)="updateSetting()">Save
+          </button>
+          <button type="button" class="btn btn-close btn-padding" (click)="clearSelectedSetting()"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
